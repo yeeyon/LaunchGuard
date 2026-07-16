@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum ScanStatus {
+  PENDING
+  COLLECTING
+  ANALYZING
+  COMPLETE
+  FAILED
+}
+
+enum FindingSource {
+  DETERMINISTIC
+  AI
+  SEEDED_AI
+}
+
+enum Severity {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+  INFO
+}
+
+enum FindingCategory {
+  BUILD
+  DEPENDENCIES
+  ENVIRONMENT
+  DOCKER
+  CICD
+  SECURITY
+  DATABASE
+  VERCEL
+  AWS
+  DOCUMENTATION
+  PERFORMANCE
+}
+
+enum ResolutionStatus {
+  OPEN
+  REVIEWED
+  RESOLVED
+}
+
+model Scan {
+  id String @id @default(cuid())
+  repositoryUrl String?
+  repositoryOwner String?
+  repositoryName String
+  branch String?
+  commitSha String?
+  framework String?
+  packageManager String?
+  requestedTarget String?
+  detectedTargets Json?
+  status ScanStatus @default(PENDING)
+  score Int?
+  readinessStatus String?
+  summary String?
+  deploymentSummary String?
+  isDemo Boolean @default(false)
+  aiMode String?
+  aiModel String?
+  errorCode String?
+  errorMessage String?
+  manifest Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  findings Finding[]
+  checklistItems ChecklistItem[]
+}
+
+model Finding {
+  id String @id @default(cuid())
+  scanId String
+  scan Scan @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  fingerprint String
+  externalId String?
+  source FindingSource
+  title String
+  category FindingCategory
+  severity Severity
+  confidence Float
+  filePath String?
+  lineStart Int?
+  lineEnd Int?
+  evidence String?
+  explanation String
+  deploymentImpact String?
+  remediation Json?
+  verificationSteps Json?
+  patchSummary String?
+  unifiedDiff String?
+  resolutionStatus ResolutionStatus @default(OPEN)
+  createdAt DateTime @default(now())
+  @@unique([scanId, fingerprint])
+  @@index([scanId, severity])
+  @@index([scanId, category])
+}
+
+model ChecklistItem {
+  id String @id @default(cuid())
+  scanId String
+  scan Scan @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  label String
+  category String?
+  completed Boolean @default(false)
+  position Int
+}

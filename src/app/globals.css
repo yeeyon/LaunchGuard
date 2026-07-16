@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #080b0d;
+  --panel: rgba(16, 21, 25, 0.86);
+  --line: rgba(183, 255, 90, 0.15);
+  --ink: #e8efe7;
+  --muted: #8fa09a;
+  --lime: #b7ff5a;
+  --amber: #ffc857;
+  --red: #ff6b6b;
+  --blue: #8ca6ff;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: radial-gradient(
+      circle at 15% -10%,
+      rgba(183, 255, 90, 0.11),
+      transparent 34rem
+    ),
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(124, 156, 255, 0.1),
+      transparent 28rem
+    ),
+    var(--bg);
+  color: var(--ink);
+  font-family: 'Trebuchet MS', ui-sans-serif, sans-serif;
+}
+::selection {
+  background: var(--lime);
+  color: #0a0e0c;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+.grid-texture {
+  background-size: 34px 34px;
+  background-image: linear-gradient(
+      rgba(183, 255, 90, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(183, 255, 90, 0.045) 1px, transparent 1px);
+}
+.panel {
+  border: 1px solid rgba(183, 255, 90, 0.14);
+  background: linear-gradient(
+    145deg,
+    rgba(23, 33, 38, 0.82),
+    rgba(11, 16, 19, 0.94)
+  );
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+}
+.eyebrow {
+  color: var(--lime);
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.6s both;
+  }
+  .rise-2 {
+    animation: rise 0.6s 0.1s both;
+  }
+  .rise-3 {
+    animation: rise 0.6s 0.2s both;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

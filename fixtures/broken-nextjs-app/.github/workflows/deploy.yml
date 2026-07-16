@@ -1,0 +1,10 @@
+name: Deploy
+on: [push]
+permissions: write-all
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx vercel --prod
+      - run: npm install

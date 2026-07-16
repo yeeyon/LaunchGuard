@@ -1,0 +1,55 @@
+{
+  "name": "launchguard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Turn fragile repositories into deployment-ready releases.",
+  "engines": {
+    "node": ">=20 <25"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "6.19.3",
+    "clsx": "2.1.1",
+    "lucide-react": "0.468.0",
+    "next": "14.2.31",
+    "openai": "6.15.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "7.54.2",
+    "tailwind-merge": "2.6.0",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.1",
+    "@types/node": "22.10.2",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "autoprefixer": "10.4.20",
+    "eslint": "8.57.1",
+    "eslint-config-next": "14.2.31",
+    "playwright": "1.55.1",
+    "postcss": "8.5.10",
+    "prettier": "3.4.2",
+    "prettier-plugin-tailwindcss": "0.6.9",
+    "prisma": "6.19.3",
+    "tailwindcss": "3.4.16",
+    "tsx": "4.19.2",
+    "typescript": "5.7.2",
+    "vitest": "2.1.8"
+  }
+}
