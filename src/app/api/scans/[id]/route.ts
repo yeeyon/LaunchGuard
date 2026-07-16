@@ -13,5 +13,8 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
       },
       { status: 404 },
     );
-  return NextResponse.json({ scan });
+  return NextResponse.json(
+    { scan },
+    { headers: { 'Cache-Control': 'private, no-store' } },
+  );
 }

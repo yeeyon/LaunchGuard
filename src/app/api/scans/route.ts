@@ -57,7 +57,7 @@ export async function POST(request: Request) {
                     ? error.code
                     : 'SCAN_FAILED',
                 message:
-                  error instanceof Error
+                  error instanceof GithubIngestionError
                     ? error.message
                     : 'The scan could not be completed.',
               },
